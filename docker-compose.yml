@@ -1,0 +1,12 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      network: host
+    volumes:
+      - "$PWD:$PWD"
+    working_dir: "$PWD"
+    env_file:
+      - .env
+    command: python3 main.py
