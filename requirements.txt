@@ -1,2 +1,2 @@
 envparse==0.2.0
-pyTelegramBotAPI==4.12.0
+aiogram==3.3.0
