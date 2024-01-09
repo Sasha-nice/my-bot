@@ -1,9 +1,11 @@
-FROM python:3.10-slim-buster
+FROM python:3.11-slim-buster
 
 WORKDIR /app
 
-COPY requirements.txt requirements.txt
+RUN pip install poetry
 
-RUN pip3 install -r requirements.txt
+COPY poetry.lock pyproject.toml /app/
 
-COPY . .
+RUN poetry config virtualenvs.create false && poetry install
+
+COPY . /app
