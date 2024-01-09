@@ -4,7 +4,6 @@ services:
       context: .
       dockerfile: Dockerfile
       network: host
-    working_dir: "$PWD"
     env_file:
       - .env
     command: python3 main.py
