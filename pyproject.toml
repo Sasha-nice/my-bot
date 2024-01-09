@@ -11,6 +11,7 @@ aiogram = "^3.3.0"
 envparse = "^0.2.0"
 black = "^23.12.1"
 isort = "^5.13.2"
+ruff = "^0.1.11"
 
 
 [build-system]
