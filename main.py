@@ -1,23 +1,22 @@
 import asyncio
 import logging
 
-from aiogram import Bot, Dispatcher
+from aiogram import Bot, Dispatcher, F, Router, types
 from aiogram.enums.parse_mode import ParseMode
-from aiogram.fsm.storage.memory import MemoryStorage
-
-
-from aiogram import types, F, Router
-from aiogram.types import Message
 from aiogram.filters import Command
-from settings import Config
+from aiogram.fsm.storage.memory import MemoryStorage
+from aiogram.types import Message
 
+from bot.settings import Config
 
 router = Router()
 
 
 @router.message(Command("start"))
 async def start_handler(msg: Message):
-    await msg.answer("Привет! Я помогу тебе узнать твой ID, просто отправь мне любое сообщение")
+    await msg.answer(
+        "Привет! Я помогу тебе узнать твой ID, просто отправь мне любое сообщение"
+    )
 
 
 @router.message()

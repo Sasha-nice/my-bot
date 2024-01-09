@@ -9,6 +9,8 @@ readme = "README.md"
 python = "^3.11"
 aiogram = "^3.3.0"
 envparse = "^0.2.0"
+black = "^23.12.1"
+isort = "^5.13.2"
 
 
 [build-system]
