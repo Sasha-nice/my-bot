@@ -1,0 +1,2 @@
+class NoArgumentProvided(Exception):
+    pass

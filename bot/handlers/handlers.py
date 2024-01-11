@@ -1,3 +1,5 @@
+from typing import Optional
+
 from aiogram import Router
 from aiogram.filters import Command, CommandObject
 from aiogram.types import Message
@@ -9,14 +11,14 @@ router = Router()
 
 
 @router.message(Command("start"))
-async def start_handler(msg: Message):
+async def start_handler(msg: Message) -> None:
     await msg.answer("Start")
 
 
 @router.message(Command("check_online"))
 async def check_online_handler(
     msg: Message, command: CommandObject, vk_client: VkClient
-):
+) -> None:
     vk_id = parse_vk_username(command.args)
     is_online = await vk_client.check_online(vk_id)
     await msg.answer(f"{'Online' if is_online else 'Not online'}")

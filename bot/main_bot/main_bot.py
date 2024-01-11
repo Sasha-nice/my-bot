@@ -22,7 +22,7 @@ class MainBot:
         self.dp.message.middleware(DependenciesMiddleware(self._vk_client))
         self.dp.include_router(router)
 
-    async def start(self):
+    async def start(self) -> None:
         await self.bot.delete_webhook(drop_pending_updates=True)
         await self.dp.start_polling(
             self.bot, allowed_updates=self.dp.resolve_used_update_types()
