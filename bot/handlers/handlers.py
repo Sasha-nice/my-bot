@@ -1,4 +1,3 @@
-from typing import Optional
 
 from aiogram import Router
 from aiogram.filters import Command, CommandObject
