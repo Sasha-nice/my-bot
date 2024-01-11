@@ -20,8 +20,11 @@ async def check_online_handler(
     msg: Message, command: CommandObject, vk_client: VkClient
 ) -> None:
     vk_id = parse_vk_username(command.args)
-    is_online = await vk_client.check_online(vk_id)
-    await msg.answer(f"{'Online' if is_online else 'Not online'}")
+    user_info = await vk_client.check_online(vk_id)
+    response = (
+        "Online" if user_info.online else f"Not online since {user_info.last_seen.time}"
+    )
+    await msg.answer(response)
 
 
 @router.error(ExceptionTypeFilter(NoArgumentProvided))
