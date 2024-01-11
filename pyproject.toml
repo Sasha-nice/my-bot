@@ -12,6 +12,8 @@ envparse = "^0.2.0"
 black = "^23.12.1"
 isort = "^5.13.2"
 ruff = "^0.1.11"
+aiohttp = "^3.9.1"
+pydantic = "^2.5.3"
 
 
 [build-system]

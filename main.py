@@ -1,35 +1,18 @@
 import asyncio
 import logging
 
-from aiogram import Bot, Dispatcher, Router
-from aiogram.enums.parse_mode import ParseMode
-from aiogram.filters import Command
-from aiogram.fsm.storage.memory import MemoryStorage
-from aiogram.types import Message
-
+from bot.main_bot.main_bot import MainBot
 from bot.settings import Config
-
-router = Router()
-
-
-@router.message(Command("start"))
-async def start_handler(msg: Message):
-    await msg.answer(
-        "Привет! Я помогу тебе узнать твой ID, просто отправь мне любое сообщение"
-    )
-
-
-@router.message()
-async def message_handler(msg: Message):
-    await msg.answer(f"Твой ID: {msg.from_user.id}")
 
 
 async def main():
-    bot = Bot(token=Config.TOKEN, parse_mode=ParseMode.HTML)
-    dp = Dispatcher(storage=MemoryStorage())
-    dp.include_router(router)
-    await bot.delete_webhook(drop_pending_updates=True)
-    await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
+    bot = MainBot(
+        telegram_bot_token=Config.TELEGRAM_TOKEN,
+        vk_api_token=Config.VK_API_TOKEN,
+        vk_api_version=Config.VK_API_VERSION,
+        vk_api_base_url=Config.VK_API_BASE_URL,
+    )
+    await bot.start()
 
 
 if __name__ == "__main__":
