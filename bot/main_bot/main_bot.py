@@ -1,8 +1,9 @@
 from aiogram import Bot, Dispatcher
 from aiogram.enums.parse_mode import ParseMode
+from aiogram.types import BotCommand
 
 from bot.clients.vk_client import VkClient
-from bot.handlers.handlers import router
+from bot.handlers.handlers import router as handlers_router
 from bot.middlewares.dependencies import DependenciesMiddleware
 
 
@@ -20,9 +21,16 @@ class MainBot:
         )
         self.dp = Dispatcher()
         self.dp.message.middleware(DependenciesMiddleware(self._vk_client))
-        self.dp.include_router(router)
+        self.dp.include_router(handlers_router)
+
+    async def _setup_commands(self) -> None:
+        bot_commands = [
+            BotCommand(command="/check_online", description="Checks if user is online"),
+        ]
+        await self.bot.set_my_commands(bot_commands)
 
     async def start(self) -> None:
+        await self._setup_commands()
         await self.bot.delete_webhook(drop_pending_updates=True)
         await self.dp.start_polling(
             self.bot, allowed_updates=self.dp.resolve_used_update_types()
