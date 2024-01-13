@@ -2,13 +2,17 @@ from typing import Any, Awaitable, Callable, Dict
 
 from aiogram import BaseMiddleware
 from aiogram.types import TelegramObject
+from aiopg.sa.engine import create_engine
 
 from bot.clients.vk_client import VkClient
+from controllers.check_online import CheckOnlineController
+from controllers.start import StartController
 
 
 class DependenciesMiddleware(BaseMiddleware):
-    def __init__(self, vk_client: VkClient) -> None:
+    def __init__(self, vk_client: VkClient, dsn: str) -> None:
         self._vk_client = vk_client
+        self._dsn = dsn
 
     async def __call__(
         self,
@@ -16,5 +20,7 @@ class DependenciesMiddleware(BaseMiddleware):
         event: TelegramObject,
         data: Dict[str, Any],
     ) -> Any:
-        data["vk_client"] = self._vk_client
+        engine = await create_engine(dsn=self._dsn)
+        data["check_online_controller"] = CheckOnlineController(self._vk_client)
+        data["start_controller"] = StartController(engine)
         return await handler(event, data)
