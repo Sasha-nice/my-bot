@@ -1,7 +1,7 @@
 from aiogram import Router
 from aiogram.filters import Command, CommandObject
 from aiogram.filters.exception import ErrorEvent, ExceptionTypeFilter
-from aiogram.types import Message
+from aiogram.types import Message, User
 
 from bot.exceptions.exceptions import NoArgumentProvided
 from controllers.check_online import CheckOnlineController
@@ -15,11 +15,14 @@ async def check_online_handler(
     msg: Message, command: CommandObject, check_online_controller: CheckOnlineController
 ) -> None:
     vk_id = parse_vk_username(command.args)
-    user_info = await check_online_controller.check_online(vk_id)
-    response = (
-        "Online" if user_info.online else f"Not online since {user_info.last_seen.time}"
-    )
-    await msg.answer(response)
+    if isinstance(msg.from_user, User):
+        user_info = await check_online_controller.check_online(vk_id, msg.from_user.id)
+        response = (
+            "Online"
+            if user_info.is_online
+            else f"Not online since {user_info.last_seen}"
+        )
+        await msg.answer(response)
 
 
 @router.error(ExceptionTypeFilter(NoArgumentProvided))

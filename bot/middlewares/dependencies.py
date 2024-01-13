@@ -21,6 +21,6 @@ class DependenciesMiddleware(BaseMiddleware):
         data: Dict[str, Any],
     ) -> Any:
         engine = await create_engine(dsn=self._dsn)
-        data["check_online_controller"] = CheckOnlineController(self._vk_client)
+        data["check_online_controller"] = CheckOnlineController(self._vk_client, engine)
         data["start_controller"] = StartController(engine)
         return await handler(event, data)
