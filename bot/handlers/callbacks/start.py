@@ -5,7 +5,7 @@ from aiogram import F, Router
 from aiogram.filters.callback_data import CallbackData
 from aiogram.types import CallbackQuery, Message
 
-from controllers.start import StartController
+from bot.controllers.start import StartController
 
 
 class Action(str, Enum):

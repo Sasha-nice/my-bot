@@ -4,7 +4,7 @@ from aiogram.filters.exception import ErrorEvent, ExceptionTypeFilter
 from aiogram.types import Message, User
 
 from bot.exceptions.exceptions import NoArgumentProvided
-from controllers.check_online import CheckOnlineController
+from bot.controllers.check_online import CheckOnlineController
 from utils.parse_vk_username import parse_vk_username
 
 router = Router()

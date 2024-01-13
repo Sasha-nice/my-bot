@@ -5,8 +5,8 @@ from aiogram.types import TelegramObject
 from aiopg.sa.engine import create_engine
 
 from bot.clients.vk_client import VkClient
-from controllers.check_online import CheckOnlineController
-from controllers.start import StartController
+from bot.controllers.check_online import CheckOnlineController
+from bot.controllers.start import StartController
 
 
 class DependenciesMiddleware(BaseMiddleware):
